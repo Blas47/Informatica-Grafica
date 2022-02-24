@@ -3,13 +3,14 @@
 #include "textures.inc"        
                 
 // La posicion de la camara
-camera {
- location <3,20,-10>
- look_at <3,3,3>
+camera { 
+    location <0,6,-10>
+    look_at <0,3,3>
+ //right 1
 }
 // Punto de luz
 light_source {
- <3,3,-10>
+ <0,10,-10>
  color rgb <1,1,1> // White
 }                    
 
@@ -24,62 +25,65 @@ plane { // Floor
 
 background{
     color Black
-}   
-
-union{
-    difference{ 
-    //CAJA
-        box {
+} 
          
-            <0,0,0>, <6,6,6> 
-            
-        }
-        cylinder
-        {
-            <3,3,-0.001>, <3,3,6.001>, 2
-        }     
-        
-        texture{ 
-            T_Wood2
-            finish { phong 0.7 }
-         }
-    }   
-    
-    cylinder
-    {
-        <3,0,3>, <3,6,3>, 1.5
-        texture {  
-            Glass3
-        } 
-    }   
-}           
-
-//palo derecha
-cylinder
-    {
-        <4.15,0,4>, <1.5,12,0>, 0.15
-        texture {  
-           pigment{ color ForestGreen}  
-           
-        } 
+#declare macetero = box {<-3,0,-3>, <3,6,3>}
+#declare agujero = cylinder {<0,3,-3.001>, <0,3,3.001>, 1.95}  
+#declare Agujeroenvase = cylinder {<0,2,0>, <0,6.001,0>, 1}
+#declare maceta =    
+    difference
+    {  
+        object {macetero}
+        object {agujero} 
+        object {Agujeroenvase}  //make it a little bigger so stays open                
+        texture {T_Wood2 finish {phong 0.7}}
     } 
+      
+#declare envaseConBorde =     
+    difference
+    {  
+
+        cylinder {<0,1,0>, <0,5.75,0>, 1.5}
+        cylinder {<0,1,0>, <0,5.7,0>, 1.3}   
+        cylinder {<0,1,0>, <0,5.76,0>, 0.7}
+        texture {Glass2 finish {reflection 0.1 phong 0.3}} 
+    }
+     
+#declare florero =
+    union
+    { 
+        object{maceta}
+        object{envaseConBorde}       
+    }          
     
-//palo izquierda
-cylinder
+#declare palo = 
+    cylinder
+    { 
+        <0,0,0>, <0,12,0>, 0.15
+        texture {pigment{ color ForestGreen}} 
+    }     
+
+union
+{
+     object{florero}
+    //palo izq a derecha /
+    object
     {
-        <1.5,0,3>, <5,12,2>, 0.15
-        texture {  
-           pigment{ color Blue}  
-           
-        } 
-    }   
-    
-//palo izquierda
-cylinder
+      palo
+      rotate<2,0,-19>
+      translate <-1.75,0,-0.3>   
+    }
+    object
     {
-        <3,0,1.5>, <4,12,5>, 0.15
-        texture {  
-           pigment{ color Red}  
-           
-        } 
-    }   
+      palo
+      rotate<-2,0,19>
+      translate <1.75,0,-0.3>
+    }  
+    object
+    {
+      palo
+      rotate<12,0,2>
+      translate <0.1,0,-0.75>
+    } 
+  
+}            
