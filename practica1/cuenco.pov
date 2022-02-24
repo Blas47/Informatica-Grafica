@@ -1,10 +1,12 @@
 #include "colors.inc"          
 #include "woods.inc"
+#include "textures.inc"
+#include "rand.inc"
 
 // La posicion de la camara
 camera {
- location <0,20,-20>
- look_at <0,2,0>
+ location <-5,15,-50>
+ look_at <-5,2,0>
 }
 // Punto de luz
 light_source {
@@ -24,8 +26,8 @@ plane { // Floor
 background{
     color Black
 }  
-difference{ 
 //Cuenco
+difference{ 
     sor {
         5,//Number of points, at least 4
         <0,0>, <3,0>, <2.75,1>,<6,6>, <2,6>
@@ -40,3 +42,45 @@ difference{
         finish { phong 0.1 }
      }
 }
+//esfera
+//vrand
+#declare RandomSeed = seed(777);
+#declare MiEsfera =
+	sphere{
+		<-15,7,-5>, 6 
+		texture{ Ruby_Glass 
+		pigment{color Red filter 0.8 }
+		} 
+	}
+#declare ZonaEsfera = 
+	sphere {
+		<-15,7,-5>, 5
+		texture{ Glass 
+		pigment{ color White filter 1
+		}			
+		}	
+}
+ #local Cntr = 1; // start
+	 	 	
+		
+
+	
+union{
+	object{MiEsfera}
+	#for(Cntr, 1, 300, 1)
+	sphere{
+		<0,0,0>, 0.5
+		translate VRand_In_Obj(ZonaEsfera, rand(RandomSeed))
+		texture{
+			Ruby_Glass
+			}
+		}
+	#end
+}
+
+
+
+
+
+
+
