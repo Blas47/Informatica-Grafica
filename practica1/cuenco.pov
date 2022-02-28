@@ -7,6 +7,7 @@
 camera {
  location <-5,15,-50>
  look_at <-5,2,0>
+	 angle 40
 }
 // Punto de luz
 light_source {
