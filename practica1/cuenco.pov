@@ -62,20 +62,20 @@ difference{
 		}	
 }
  #local Cntr = 1; // start
-	 	 	
-		
-
+	 	 			
 	
 union{
 	object{MiEsfera}
 	#for(Cntr, 1, 300, 1)
 	sphere{
 		<0,0,0>, 0.5
+		
 		translate VRand_In_Obj(ZonaEsfera, rand(RandomSeed))
 		texture{
 			Ruby_Glass
 			}
 		}
+	
 	#end
 }
 
