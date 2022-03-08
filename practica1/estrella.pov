@@ -39,17 +39,13 @@ prism {
     < 1, -8>, 
     < -1, -8>, 
     < -3,  -5.196>
-    //texture { Ruby_Glass }
-      pigment{Blue}
-
 
   }
   #declare base = 
   prism {
   	linear_sweep
-
   	0,
-  	3,
+  	1,
   	7,
   	<6,0>,
   	<3,5.196>,
@@ -58,9 +54,8 @@ prism {
   	<-3,-5.196>,
    	<3,-5.196>,
   	<6,0>
-  	//texture { Ruby_Glass }
-  	pigment{Blue}
-  	}
+
+  	  	}
 #declare angulo = 0;
 #declare altura =  1 ;
 #declare resta = 
@@ -68,13 +63,14 @@ prism {
 	object{
 		base  
 			translate <0,0,0> 
-			scale <1.2,1,1.2> 
+			scale <1.4,1,1.4> 
 		}
 	object{
 		base 
 			translate <0,0,0>
-			scale <1,1.00001,1> 
+			scale <1,1.01,1> 
 		}
+		
 	}
 #declare forma = 
 object{
@@ -92,13 +88,17 @@ union{
 }
 #declare estrella = 
 union{
-	object{base pigment{Blue}}
+	object{base }
 	object{forma}
 	}
 #declare figura = union{
 	object{estrella}
 	object {resta translate <0,2,0>}
+
 	}
-object{figura}
+object{figura
+	texture { NBbeerbottle }
+	 pigment {Green}
+	 }
 
 
