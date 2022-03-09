@@ -1,14 +1,16 @@
 #include "colors.inc"          
 #include "woods.inc"
-
+#include "florero.pov"
+#include "cuenco.pov"
 // La posicion de la camara
 camera {
- location <0,5,-10>
+ location <0,10,-20>
  look_at <0,2,0>
+ 
 }
 // Punto de luz
 light_source {
- <3,30,30>
+ <1,10,10>
  color rgb <1,1,1> // White
 }                    
 
@@ -25,10 +27,11 @@ background{
     color Black
 }
 
-sphere {
-     <0,1,0>, 1  
-     texture{
-        pigment{color Blue}
-       }         
-} 
-            
+
+object{floreroFigura
+    translate<-10,0,10>
+}     
+object{cuenco
+    scale 0.5
+    
+}
