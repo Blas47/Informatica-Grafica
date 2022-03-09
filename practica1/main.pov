@@ -5,14 +5,14 @@
 
 // La posicion de la camara
 camera {
- location <-5,40,-70>
+ location <-5,30,-60>
  right x
- look_at <-5,2,0>
+ look_at <-10,2,0>
 	 angle 40
 }
 // Punto de luz
 light_source {
- <3,30,30>
+ <0,30,30>
  color rgb <1,1,1> // White
 }                    
 
@@ -27,7 +27,7 @@ plane { // Floor
 background{
     color Black
 }  
-//Cuenco
+//CUENCO
 #declare cuenco = 
 difference{ 
     sor {
@@ -44,8 +44,7 @@ difference{
         finish { phong 0.1 }
      }
 }
-//esfera
-//vrand
+//ESFERA
 #declare RandomSeed = seed(777);
 #declare MiEsfera =
 	sphere{
@@ -78,6 +77,7 @@ union{
 	
 	#end
 }
+//ESTRELLA DE CRISTAL
 #declare trapecio = 
 prism {
 	linear_sweep
@@ -120,7 +120,7 @@ prism {
 			translate <0,0,0>
 			scale <1,1.01,1> 
 		}
-		
+	translate<0,-0.5,0>
 	}
 #declare forma = 
 object{
@@ -129,7 +129,7 @@ union{
 	object {
 		trapecio
 			rotate<0,angulo,0>
-			scale<0, 1 + 0.5*mod(altura,2),0>		
+			scale<0, 1 + 0.4*mod(altura,2),0>		
 	}
 	#declare angulo = angulo + 60;
 	#declare altura = altura +1;	
@@ -142,16 +142,94 @@ union{
 	object{forma}
 	}
 #declare figuraEstrella = union{
-	object{estrella}
-	object {resta translate <0,1,0> scale<0,2.4,0>}
+	object{estrella scale<0.9,1.3,0.9>}
+	object {resta translate <0,1,0> scale<0.8,5,0.8>}
 
 }
-//objetos finales
+/////FLORERO
+
+#local bordeEnvaseExterior = cylinder {<0,1,0>, <0,5.75,0>, 1.5}
+      
+#local envaseConBorde =     
+    difference
+    {  
+
+        object {bordeEnvaseExterior}
+        cylinder {<0,1,0>, <0,5.7,0>, 1.3}   
+        cylinder {<0,1,0>, <0,5.76,0>, 0.7}
+        texture {Glass3 finish {reflection 0.1 phong 0.3}}   
+        normal { bumps 0.4 scale 0.2 }
+    }       
+#local macetero = box {<-3,0,-3>, <3,6,3>}
+#local agujero = cylinder {<0,3,-3.001>, <0,3,3.001>, 1.95}  
+#local Agujeroenvase = cylinder {<0,2,0>, <0,6.001,0>, 1}
+#local maceta =    
+    difference
+    {  
+        object {macetero}  
+        object {bordeEnvaseExterior}
+        object {agujero} 
+        object {Agujeroenvase}  //make it a little bigger so stays open 
+                      
+        texture {T_Wood2 finish {phong 0.7}}
+    }   
+
+
+     
+#declare florero =
+    union
+    { 
+        object{maceta}
+        object{envaseConBorde}       
+    }          
+    
+#local palo = 
+    cylinder
+    { 
+        <0,0,0>, <0,12,0>, 0.15
+        texture {pigment{ color ForestGreen}} 
+    }
+#declare floreroFigura =     
+union
+{
+     object{florero}
+    //palo izq a derecha /
+    object
+    {
+      palo
+      rotate<2,0,-19>
+      translate <-1.5,0,-0.3>   
+    }
+    object
+    {
+      palo
+      rotate<-2,0,19>
+      translate <1.5,0,-0.3>
+    }  
+    object
+    {
+      palo
+      rotate<13,0,2>
+      translate <0.1,0,-0.85>
+    } 
+    object{bordeEnvaseExterior
+    texture{ Water }
+    normal{ bumps 0.03
+         scale <1,0.25,0.25>*1
+         turbulence 0.6
+               }
+        scale<0,0.2,0>
+        }
+}     
+
+//OBJETOS FINALES
 object{cuenco}
 object{esfera}
 object{figuraEstrella
 	texture { NBbeerbottle }
-	 pigment {Green}
-	 rotate<0,70,0>
-	 translate <-10,0,20>}
+	 pigment {White}
+	 //rotate<0,70,0>
+	 translate <-20,0,30>}
+object{floreroFigura
+		translate<-5,0,20>}
 

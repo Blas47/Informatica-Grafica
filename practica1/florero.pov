@@ -3,6 +3,7 @@
 #include "textures.inc"        
  camera {
  location <0,10,-15>
+ right x
  look_at <0,2,0>
  
 }
@@ -98,7 +99,7 @@ union
         scale<0,0.2,0>
         }
 }     
-
+object{floreroFigura}
         
 
 
