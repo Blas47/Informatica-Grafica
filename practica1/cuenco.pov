@@ -3,6 +3,7 @@
 #include "textures.inc"
 #include "rand.inc"
 
+<<<<<<< HEAD
 // La posicion de la camara
 camera {
  location <-5,15,-50>
@@ -28,6 +29,11 @@ background{
     color Black
 }  
 //Cuenco
+=======
+  
+//Cuenco      
+#declare cuenco =
+>>>>>>> 7358fa5c7ce0843fcc372d36dbfa40748dda5319
 difference{ 
     sor {
         5,//Number of points, at least 4
@@ -43,6 +49,7 @@ difference{
         finish { phong 0.1 }
      }
 }
+<<<<<<< HEAD
 //esfera
 //vrand
 #declare RandomSeed = seed(777);
@@ -79,6 +86,8 @@ union{
 	#end
 }
 //Estrella
+=======
+>>>>>>> 7358fa5c7ce0843fcc372d36dbfa40748dda5319
 
 
 

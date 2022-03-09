@@ -3,12 +3,12 @@
 
 // La posicion de la camara
 camera {
- location <0,3,-3>
- look_at <0,1,0>
+ location <0,5,-10>
+ look_at <0,2,0>
 }
 // Punto de luz
 light_source {
- <-3,3,0>
+ <3,30,30>
  color rgb <1,1,1> // White
 }                    
 
@@ -16,16 +16,13 @@ plane { // Floor
     <0,1,0>, 0 //Normal and distance
     texture { 
         pigment {
-            checker
             color White
-            color Black
-            scale 1
-        } 
+            } 
     } 
 }
 
 background{
-
+    color Black
 }
 
 sphere {
