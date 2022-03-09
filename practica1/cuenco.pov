@@ -6,6 +6,7 @@
 // La posicion de la camara
 camera {
  location <-5,15,-50>
+ right x
  look_at <-5,2,0>
 	 angle 40
 }
@@ -23,7 +24,6 @@ plane { // Floor
             } 
     } 
 }
-
 background{
     color Black
 }  
@@ -48,14 +48,14 @@ difference{
 #declare RandomSeed = seed(777);
 #declare MiEsfera =
 	sphere{
-		<-15,7,-5>, 6 
+		<-15,7,-5>, 7 
 		texture{ Ruby_Glass 
 		pigment{color Red filter 0.8 }
 		} 
 	}
 #declare ZonaEsfera = 
 	sphere {
-		<-15,7,-5>, 5
+		<-15,7,-5>, 6
 		texture{ Glass 
 		pigment{ color White filter 1
 		}			
@@ -78,6 +78,7 @@ union{
 	
 	#end
 }
+//Estrella
 
 
 

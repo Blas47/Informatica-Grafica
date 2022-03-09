@@ -5,14 +5,14 @@
 
 // La posicion de la camara
 camera {
- location <-5,30,-20>
+ location <-5,40,-70>
  right x
- look_at <0,0,0>
+ look_at <-5,2,0>
+	 angle 40
 }
-
 // Punto de luz
 light_source {
- <0,30,0>
+ <3,30,30>
  color rgb <1,1,1> // White
 }                    
 
@@ -24,11 +24,60 @@ plane { // Floor
             } 
     } 
 }
-
 background{
     color Black
 }  
-//////////////// Estrella
+//Cuenco
+#declare cuenco = 
+difference{ 
+    sor {
+        5,//Number of points, at least 4
+        <0,0>, <3,0>, <2.75,1>,<6,6>, <2,6>
+        
+    }
+    sphere {
+         <0,7,0>, 6       
+    } 
+    texture{ 
+        pigment{ color rgb<1,0.95,0.8>} 
+        normal { bumps 0.5 scale 0.01}
+        finish { phong 0.1 }
+     }
+}
+//esfera
+//vrand
+#declare RandomSeed = seed(777);
+#declare MiEsfera =
+	sphere{
+		<-15,5,-5>, 5 
+		texture{ Ruby_Glass 
+		pigment{color Red filter 0.8 }
+		} 
+	}
+#declare ZonaEsfera = 
+	sphere {
+		<-15,5,-5>, 4
+		texture{ Glass 
+		pigment{ color White filter 1
+		}			
+		}	
+}
+ #local Cntr = 1; // start
+ #declare esfera = 	
+union{
+	object{MiEsfera}
+	#for(Cntr, 1, 150, 1)
+	sphere{
+		<0,0,0>, 0.5
+		
+		translate VRand_In_Obj(ZonaEsfera, rand(RandomSeed))
+		texture{
+			Ruby_Glass
+			}
+		}
+	
+	#end
+}
 #declare trapecio = 
 prism {
 	linear_sweep
@@ -92,14 +141,17 @@ union{
 	object{base }
 	object{forma}
 	}
-#declare figura = union{
+#declare figuraEstrella = union{
 	object{estrella}
-	object {resta translate <0,2,0>}
+	object {resta translate <0,1,0> scale<0,2.4,0>}
 
-	}
-object{figura
+}
+//objetos finales
+object{cuenco}
+object{esfera}
+object{figuraEstrella
 	texture { NBbeerbottle }
 	 pigment {Green}
-	 }
-
+	 rotate<0,70,0>
+	 translate <-10,0,20>}
 
