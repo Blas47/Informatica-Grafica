@@ -6,9 +6,9 @@
 #include "esfera.pov"
 /// La posicion de la camara
 camera {
- location <10,30,-50>
+ location <10,40,-50>
  right x
- look_at <-10,0,20>
+ look_at <-10,0,10>
 	 angle 40
 }
 // Punto de luz
@@ -41,7 +41,7 @@ object{figuraEstrella
 	 //rotate<0,70,0>
 	 translate <-23,0,20>}
 object{floreroFigura
-        rotate <0,-180,0>
+        rotate <0,-10,0>
 		translate<-5,0,8>
 		scale 1.5
 		
