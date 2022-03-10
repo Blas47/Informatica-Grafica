@@ -1,59 +1,49 @@
-// Ejemplos de texturas con fractales en Pov-ray
-//https://www.povray.org/documentation/view/3.6.1/377/
-// http://www.f-lohmueller.de/pov_tut/tex/tex_760e.htm
+#include "colors.inc"          
+#include "woods.inc"
 
-
+/// La posicion de la camara
 camera {
-location <0,0,-3> look_at 0
+ location <-30,10,0>
+ right x
+ look_at <-30,0,0>
+	 angle 40
+}
+// Punto de luz
+light_source {
+ <-10,30,20>
+ color rgb <1,1,1> // White
+}                 
+
+plane { // Floor
+    <0,1,0>, 0 //Normal and distance
+    texture { 
+        pigment {
+            color White
+            } 
+    } 
 }
 
-sky_sphere { pigment { color rgb 1 } } 
-light_source {< 20, 10, -50> color rgb <1,1,1> }
-
-
-//Pigmento Mandel. Caso base
-/*
-sphere{0,1	 	
-	pigment{ mandel 50 exponent 2 //2...33
-	         scale 0.60 translate<0.3,0,0>
-	         color_map{[0.00 color rgb <0.5,0,0.25>]
-	                   [0.08 color rgb <0.8,0,0.10>]
-	                   [0.20 color rgb <1,0.4,0>]
-	                   [0.30 color rgb <1,0.7,0>]
-	                   [1.0 color rgb <1,1,1>]}
-	        } 
-}
-*/
-////Pigmento Mandel. Aplicación normal
-sphere{0,1	 	
-	pigment{ color rgb <1,1		,1>}
-	normal { mandel 125  //Número máximo de iteraciones
-	         scale 0.50 translate<0.15,0,0>
-		} 
+background{
+    color Black
 }
 
+#local alturaTeclado = 2;
+#local anchoTeclado = 1;
+#local largoTeclado = 3;
+#local factorEscaladoTeclado = 10;
+#local superficieTeclado =
+box{ <-factorEscaladoTeclado*largoTeclado,0,-factorEscaladoTeclado*anchoTeclado>, <factorEscaladoTeclado*largoTeclado,alturaTeclado,factorEscaladoTeclado*anchoTeclado>	 	
+	pigment{ color Red}
+	
+}   
+#local tecla =
+box{ <-1,0,-1>, <1,1,1>	 	
+	pigment{ color Blue}  
+	scale 0.5
+	
+}  
 
-////Pigmento Julia. Caso base
-/*
-sphere{0,1	 	
-pigment{ julia <0.360, 0.250>, 20
-         interior 1, 1  
-         scale 0.60
-         color_map{[0.0 color rgb <0,0,0>]
-                   [0.2 color rgb <1,0,0>]
-                   [0.4 color rgb <1,1,0>]
-                   [1.0 color rgb <1,1,1>]
-                   [1.0 color rgb <0,0,0>]}
-        } // end of pigment
+object{superficieTeclado}
+object{tecla
+    translate <-factorEscaladoTeclado*largoTeclado,alturaTeclado,0>
 }
-*/
-
-////Pigmento Julia. Aplicación normal
-/*
-sphere{0,1	 	
-	pigment{ color rgb <1,1,1>}
-	normal { julia <0.360, 0.250>, 20
-	         scale 0.50
-	} 
-}
-*/
