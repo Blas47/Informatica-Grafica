@@ -1,11 +1,13 @@
 #include "colors.inc"          
 #include "woods.inc"
-
+#include "textures.inc"
+#include "rand.inc"  
+#include "Tecla.pov"
 /// La posicion de la camara
 camera {
- location <0,10,0>
+ location <0,10,10>
  right x
- look_at <0,0,0>
+ look_at <0,0,10>
 	 angle 40
 }
 // Punto de luz
@@ -27,10 +29,67 @@ background{
     color Black
 }
 
-#local superficieTeclado =
-box{ <-3,0,-1>, <3,1,1>	 	
+#declare alturaTeclado = 2;
+#declare anchoTeclado = 1;
+#declare largoTeclado = 3;
+#declare factorEscaladoTeclado = 10; 
+#declare paddingTeclado = 0.3;
+#declare superficieTeclado =
+box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
+    scale <factorEscaladoTeclado,0,factorEscaladoTeclado>	 	
 	pigment{ color Red}
 	
-}
+}         
+
+
 
 object{superficieTeclado}
+
+//object{tecla
+//    translate <-(factorEscaladoTeclado*largoTeclado)+anchoTeclado,alturaTeclado,(factorEscaladoTeclado*anchoTeclado)-anchoTeclado>
+//}    
+
+
+     
+     
+#local Xcount = 0;   
+#local Zcount =    (factorEscaladoTeclado*anchoTeclado)-anchoTeclado; 
+
+
+declare mediaFilaSuperioTeclas =   
+union{
+    #while( Xcount < (factorEscaladoTeclado*largoTeclado)-paddingTeclado)
+        object{tecla
+            translate <Xcount,alturaTeclado,(factorEscaladoTeclado*anchoTeclado)-anchoTeclado>
+        }
+        
+        #declare Xcount =  Xcount + 2*anchoTeclado + paddingTeclado;
+    #end
+} 
+
+object{mediaFilaSuperioTeclas}   
+object{mediaFilaSuperioTeclas
+    
+    translate <-(factorEscaladoTeclado*largoTeclado)+anchoTeclado*2,0,0>
+
+}    
+     
+     
+     
+     
+     
+     
+     
+     
+
+#local indicadorProxTeclado =
+box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
+    	
+	pigment{ color Blue}	
+}            
+    
+
+object{indicadorProxTeclado 
+    
+    translate <0,2*alturaTeclado,-(factorEscaladoTeclado*anchoTeclado)+2*anchoTeclado>
+} 
