@@ -5,9 +5,9 @@
 #include "Tecla.pov"
 /// La posicion de la camara
 camera {
- location <0,1000,5>
+ location <0,100,-350>
  right x
- look_at <0,2,5>
+ look_at <0,50,100>
 	 angle 40
 }
 // Punto de luz

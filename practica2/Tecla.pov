@@ -4,7 +4,7 @@
 #include "rand.inc"
 /// La posicion de la camara
 camera {
- location <0,2,-2>
+ location <0,5,-5>
  right x
  look_at <0,0,0>
 	 angle 40
@@ -36,27 +36,53 @@ background{
 #declare factorEscaladoTeclado = 10; 
 #declare paddingTeclado = 0.3;
 #declare relacionProxTeclado = 4;
-#declare tecla =
-union{
-    box{ <-anchoTeclado,0,-anchoTeclado>, <anchoTeclado,anchoTeclado,anchoTeclado>	 	
+#declare teclaCaja =
+box
+{ <-anchoTeclado,0,-anchoTeclado>, <anchoTeclado,anchoTeclado,anchoTeclado>	 	
 	    pigment{color Blue}  
 	    scale 0.5
-	}
-	sphere{ 
-		<0,anchoTeclado/2,0>, 0.25 
-		texture{ 
-		    Ruby_Glass 
-		    pigment{color Red filter 0.8 }   
-		}
-	}   
-	sphere{ 
-		<0,anchoTeclado/2,0>, 0.15 
-		texture{ 
-		    Ruby_Glass 
-		    pigment{color White filter 0.8 }   
-		}
-	}   
 }
+	                                
+                                
+#declare botonTecla = 
+sphere
+{ 
+		<0,anchoTeclado/2,0>, 0.25 
+		//texture{Ruby_Glass pigment{color White filter 0.1 }}
+} 
+                             
+#declare fractalTecla = object {botonTecla};
+#declare iteration = 0; 
+#while (iteration<5) 
+#declare fractalTecla = 
+ union { 
+     object { botonTecla texture{Ruby_Glass 
+            pigment {
+                gradient x
+                color_map {
+                  [0.00/(iteration+1) color Red]
+                  [0.33/(iteration+1) color Blue]
+                  [0.66/(iteration+1) color Yellow]
+                  [1.00/(iteration+1) color Red]
+                }
+              }
+        }
+     }   
+     object { fractalTecla scale 0.5 translate <0,2,0> } 
+ } 
+ #declare iteration = iteration + 1; 
+#end   
+#declare tecla = 
+union
+{      
+    object { teclaCaja }
+    object { fractalTecla pigment {color Red}}   
+
+}      
+
+
+       
+
               
 #local Xcount = 0;   
 #local Zcount = 0; 
@@ -100,4 +126,3 @@ union{
 }            
     
 
-                

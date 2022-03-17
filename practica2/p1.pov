@@ -29,10 +29,9 @@ plane { // Floor
 background{
     color Black
 }
-
-
+#declare escenaFinal =
+union {
 //OBJETOS FINALES
-
 object{cuenco
         scale 0.9}
 object{esfera}
@@ -47,3 +46,4 @@ object{floreroFigura
 		scale 1.5
 		
 		}
+}

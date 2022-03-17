@@ -5,14 +5,14 @@
 #include "Tecla.pov"
 /// La posicion de la camara
 camera {
- location <0,50,9>
+ location <0,1000,5>
  right x
- look_at <0,2,9>
+ look_at <0,2,5>
 	 angle 40
 }
 // Punto de luz
 light_source {
- <-10,30,20>
+ <-10,1050,20>
  color rgb <1,1,1> // White
 }                 
 
@@ -68,12 +68,14 @@ difference {
 
 #declare fractal = object { TecladoConHueco pigment {color Red} };
 #declare iteration = 0; 
-#while (iteration<3) 
+#while (iteration<5) 
  #declare fractal = 
  union { 
      object { TecladoConHueco pigment {color Red} }   
-     object { fractal scale 0.439 translate <0,1.51,0.2> } 
+     object { fractal scale 0.439 translate <0,1.1,0.2> } 
  } 
  #declare iteration = iteration + 1; 
 #end   
-object { fractal pigment {color Red} }
+object { fractal pigment {color Red} scale <10,0,10>}   
+
+object { tecladoEntero scale <0.066,0.06,0.06> translate <0,1.8,3.66> } 

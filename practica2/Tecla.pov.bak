@@ -95,12 +95,9 @@ union{
 }    
 
 #declare indicadorProxTeclado = box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>  
-    scale <relacionProxTeclado,1,relacionProxTeclado>
-    	
-	pigment{ color Blue}	
+    scale (relacionProxTeclado+paddingTeclado)
+	pigment{ color Red}	
 }            
     
 
                 
-
-object{tecla}

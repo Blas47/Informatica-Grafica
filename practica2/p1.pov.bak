@@ -32,7 +32,6 @@ background{
 
 
 //OBJETOS FINALES
-
 object{cuenco
         scale 0.9}
 object{esfera}
