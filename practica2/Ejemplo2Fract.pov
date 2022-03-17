@@ -5,14 +5,14 @@
 #include "Tecla.pov"
 /// La posicion de la camara
 camera {
- location <0,100,10>
+ location <0,1000,5>
  right x
- look_at <0,0,10>
+ look_at <0,2,5>
 	 angle 40
 }
 // Punto de luz
 light_source {
- <-10,30,20>
+ <-10,1050,20>
  color rgb <1,1,1> // White
 }                 
 
@@ -33,7 +33,8 @@ background{
 #declare anchoTeclado = 1;
 #declare largoTeclado = 3;
 #declare factorEscaladoTeclado = 10; 
-#declare paddingTeclado = 0.3;
+#declare paddingTeclado = 0.3;  
+#declare relacionProxTeclado = 4;
 #declare superficieTeclado =
 box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
     scale <factorEscaladoTeclado,0,factorEscaladoTeclado>	 	
@@ -41,69 +42,40 @@ box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
 	
 }         
 
-
-
-object{superficieTeclado}
-
-//object{tecla
-//    translate <-(factorEscaladoTeclado*largoTeclado)+anchoTeclado,alturaTeclado,(factorEscaladoTeclado*anchoTeclado)-anchoTeclado>
-//}    
-
-
-     
-     
-#local Xcount = 0;   
-#local Zcount = 0; 
-#local numeroFilasTeclado = 7;
-
-
-declare mediaFilaSuperioTeclas =   
+#declare tecladoEntero = 
 union{
-    #while( Xcount < (factorEscaladoTeclado*largoTeclado)-paddingTeclado)
-        object{tecla
-            translate <Xcount,alturaTeclado,(factorEscaladoTeclado*anchoTeclado)-anchoTeclado>
-        }
-        
-        #declare Xcount =  Xcount + 2*anchoTeclado + paddingTeclado;
-    #end
-} 
-  
-declare FilaSuperiorTeclas =
-union{   
-    object{mediaFilaSuperioTeclas}   
-    object{mediaFilaSuperioTeclas
-        scale<-1,0,0>
-    }        
-}    
-     
+    object{superficieTeclado}     
+    object{TeclasFilas}
+    translate<0,0,anchoTeclado*factorEscaladoTeclado>  
+}
 
-declare TeclasFilas =   
-union{
-    #while( Zcount < numeroFilasTeclado)
-        object{FilaSuperiorTeclas
-            translate <0,0,-Zcount * (factorEscaladoTeclado * paddingTeclado)>
-        }
-        
-        #declare Zcount =  Zcount + 1;
-    #end
-}   
-#declare indicadorProxTeclado = box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
-    	
-	pigment{ color Blue}	
-}            
-    
 
-#declare TotalTeclas = 
+
+ 
+#declare TecladoConHueco = 
 difference {
-     object{TeclasFilas}
-     object{indicadorProxTeclado 
-        //translate <0,2,-(factorEscaladoTeclado*anchoTeclado)+2*anchoTeclado>
-        translate <0,1.9,-(factorEscaladoTeclado*anchoTeclado)+2*(anchoTeclado-paddingTeclado)>
-     } 
-}  
+     object{tecladoEntero}
+     object{indicadorProxTeclado
+        translate<0,0,relacionProxTeclado+2*paddingTeclado>} 
+     pigment {color Red} 
+} 
 
-object{TotalTeclas}    
-     
+       
 
-  
+                       
+                       
 
+
+#declare fractal = object { TecladoConHueco pigment {color Red} };
+#declare iteration = 0; 
+#while (iteration<5) 
+ #declare fractal = 
+ union { 
+     object { TecladoConHueco pigment {color Red} }   
+     object { fractal scale 0.439 translate <0,1.1,0.2> } 
+ } 
+ #declare iteration = iteration + 1; 
+#end   
+object { fractal pigment {color Red} scale <10,0,10>}   
+
+object { tecladoEntero scale <0.066,0.06,0.06> translate <0,1.8,3.66> } 

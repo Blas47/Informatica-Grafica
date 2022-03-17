@@ -29,11 +29,13 @@ background{
 }
 
 
-#local alturaTeclado = 2;
-#local anchoTeclado = 1;
-#local largoTeclado = 3;
-#local factorEscaladoTeclado = 10;
 
+#declare alturaTeclado = 2;
+#declare anchoTeclado = 1;
+#declare largoTeclado = 3;
+#declare factorEscaladoTeclado = 10; 
+#declare paddingTeclado = 0.3;
+#declare relacionProxTeclado = 4;
 #declare tecla =
 union{
     box{ <-anchoTeclado,0,-anchoTeclado>, <anchoTeclado,anchoTeclado,anchoTeclado>	 	
@@ -56,5 +58,46 @@ union{
 	}   
 }
               
+#local Xcount = 0;   
+#local Zcount = 0; 
+#local numeroFilasTeclado = 7;
 
-object{tecla}
+
+declare mediaFilaSuperioTeclas =   
+union{
+    #while( Xcount < (factorEscaladoTeclado*largoTeclado)-paddingTeclado)
+        object{tecla
+            translate <Xcount,alturaTeclado,(factorEscaladoTeclado*anchoTeclado)-anchoTeclado>
+        }
+        
+        #declare Xcount =  Xcount + 2*anchoTeclado + paddingTeclado;
+    #end
+} 
+ 
+declare FilaSuperiorTeclas =
+union{   
+    object{mediaFilaSuperioTeclas}   
+    object{mediaFilaSuperioTeclas
+        scale<-1,0,0>
+    }        
+}    
+     
+
+declare TeclasFilas =   
+union{
+    #while( Zcount < numeroFilasTeclado)
+        object{FilaSuperiorTeclas
+            translate <0,0,-Zcount * (factorEscaladoTeclado * paddingTeclado)>
+        }
+        
+        #declare Zcount =  Zcount + 1;
+    #end
+}    
+
+#declare indicadorProxTeclado = box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>  
+    scale (relacionProxTeclado+paddingTeclado)
+	pigment{ color Red}	
+}            
+    
+
+                

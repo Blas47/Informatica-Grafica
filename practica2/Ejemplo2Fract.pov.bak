@@ -5,9 +5,9 @@
 #include "Tecla.pov"
 /// La posicion de la camara
 camera {
- location <0,10,10>
+ location <0,50,9>
  right x
- look_at <0,0,10>
+ look_at <0,2,9>
 	 angle 40
 }
 // Punto de luz
@@ -33,7 +33,8 @@ background{
 #declare anchoTeclado = 1;
 #declare largoTeclado = 3;
 #declare factorEscaladoTeclado = 10; 
-#declare paddingTeclado = 0.3;
+#declare paddingTeclado = 0.3;  
+#declare relacionProxTeclado = 4;
 #declare superficieTeclado =
 box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
     scale <factorEscaladoTeclado,0,factorEscaladoTeclado>	 	
@@ -41,55 +42,38 @@ box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
 	
 }         
 
-
-
-object{superficieTeclado}
-
-//object{tecla
-//    translate <-(factorEscaladoTeclado*largoTeclado)+anchoTeclado,alturaTeclado,(factorEscaladoTeclado*anchoTeclado)-anchoTeclado>
-//}    
-
-
-     
-     
-#local Xcount = 0;   
-#local Zcount =    (factorEscaladoTeclado*anchoTeclado)-anchoTeclado; 
-
-
-declare mediaFilaSuperioTeclas =   
+#declare tecladoEntero = 
 union{
-    #while( Xcount < (factorEscaladoTeclado*largoTeclado)-paddingTeclado)
-        object{tecla
-            translate <Xcount,alturaTeclado,(factorEscaladoTeclado*anchoTeclado)-anchoTeclado>
-        }
-        
-        #declare Xcount =  Xcount + 2*anchoTeclado + paddingTeclado;
-    #end
+    object{superficieTeclado}     
+    object{TeclasFilas}
+    translate<0,0,anchoTeclado*factorEscaladoTeclado>  
+}
+
+
+
+ 
+#declare TecladoConHueco = 
+difference {
+     object{tecladoEntero}
+     object{indicadorProxTeclado
+        translate<0,0,relacionProxTeclado+2*paddingTeclado>} 
+     pigment {color Red} 
 } 
 
-object{mediaFilaSuperioTeclas}   
-object{mediaFilaSuperioTeclas
-    
-    translate <-(factorEscaladoTeclado*largoTeclado)+anchoTeclado*2,0,0>
+       
 
-}    
-     
-     
-     
-     
-     
-     
-     
-     
+                       
+                       
 
-#local indicadorProxTeclado =
-box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
-    	
-	pigment{ color Blue}	
-}            
-    
 
-object{indicadorProxTeclado 
-    
-    translate <0,2*alturaTeclado,-(factorEscaladoTeclado*anchoTeclado)+2*anchoTeclado>
-} 
+#declare fractal = object { TecladoConHueco pigment {color Red} };
+#declare iteration = 0; 
+#while (iteration<3) 
+ #declare fractal = 
+ union { 
+     object { TecladoConHueco pigment {color Red} }   
+     object { fractal scale 0.439 translate <0,1.51,0.2> } 
+ } 
+ #declare iteration = iteration + 1; 
+#end   
+object { fractal pigment {color Red} }

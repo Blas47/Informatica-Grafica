@@ -1,10 +1,10 @@
-                                #include "colors.inc"          
+#include "colors.inc"          
 #include "woods.inc"
 #include "textures.inc"
 #include "rand.inc"
 /// La posicion de la camara
 camera {
- location <0,100,0>
+ location <0,2,-2>
  right x
  look_at <0,0,0>
 	 angle 40
@@ -28,46 +28,79 @@ background{
     color Black
 }
 
-#local alturaTeclado = 2;
-#local anchoTeclado = 1;
-#local largoTeclado = 3;
-#local factorEscaladoTeclado = 10;
-#local superficieTeclado =
-box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
-    scale <factorEscaladoTeclado,0,factorEscaladoTeclado>	 	
-	pigment{ color Red}
-	
-}   
-#local tecla =
+
+
+#declare alturaTeclado = 2;
+#declare anchoTeclado = 1;
+#declare largoTeclado = 3;
+#declare factorEscaladoTeclado = 10; 
+#declare paddingTeclado = 0.3;
+#declare relacionProxTeclado = 4;
+#declare tecla =
 union{
     box{ <-anchoTeclado,0,-anchoTeclado>, <anchoTeclado,anchoTeclado,anchoTeclado>	 	
 	    pigment{color Blue}  
 	    scale 0.5
 	}
 	sphere{ 
-		<0,anchoTeclado,0>, 0.25 
+		<0,anchoTeclado/2,0>, 0.25 
 		texture{ 
 		    Ruby_Glass 
 		    pigment{color Red filter 0.8 }   
 		}
 	}   
+	sphere{ 
+		<0,anchoTeclado/2,0>, 0.15 
+		texture{ 
+		    Ruby_Glass 
+		    pigment{color White filter 0.8 }   
+		}
+	}   
 }
               
+#local Xcount = 0;   
+#local Zcount = 0; 
+#local numeroFilasTeclado = 7;
 
 
-#local indicadorProxTeclado =
-box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
+declare mediaFilaSuperioTeclas =   
+union{
+    #while( Xcount < (factorEscaladoTeclado*largoTeclado)-paddingTeclado)
+        object{tecla
+            translate <Xcount,alturaTeclado,(factorEscaladoTeclado*anchoTeclado)-anchoTeclado>
+        }
+        
+        #declare Xcount =  Xcount + 2*anchoTeclado + paddingTeclado;
+    #end
+} 
+ 
+declare FilaSuperiorTeclas =
+union{   
+    object{mediaFilaSuperioTeclas}   
+    object{mediaFilaSuperioTeclas
+        scale<-1,0,0>
+    }        
+}    
+     
+
+declare TeclasFilas =   
+union{
+    #while( Zcount < numeroFilasTeclado)
+        object{FilaSuperiorTeclas
+            translate <0,0,-Zcount * (factorEscaladoTeclado * paddingTeclado)>
+        }
+        
+        #declare Zcount =  Zcount + 1;
+    #end
+}    
+
+#declare indicadorProxTeclado = box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>  
+    scale <relacionProxTeclado,1,relacionProxTeclado>
     	
 	pigment{ color Blue}	
 }            
     
 
-object{indicadorProxTeclado
-    translate <0,2*alturaTeclado,-(factorEscaladoTeclado*anchoTeclado)+2*anchoTeclado>
-} 
+                
 
-object{superficieTeclado}
-
-object{tecla
-    translate <-(factorEscaladoTeclado*largoTeclado)+anchoTeclado,alturaTeclado,(factorEscaladoTeclado*anchoTeclado)-anchoTeclado>
-}
+object{tecla}
