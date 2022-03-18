@@ -88,6 +88,4 @@ union{
 
 
 
-object{pantalla}  
-
 

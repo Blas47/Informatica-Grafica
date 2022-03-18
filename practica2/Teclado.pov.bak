@@ -71,12 +71,7 @@ difference {
      object { fractal scale 0.439 translate <0,1.1,0.2> } 
  } 
  #declare iteration = iteration + 1; 
-#end                                          
+#end   
+object { fractal pigment {color Red} scale <10,0,10>}   
 
-#declare TecladoFinal = 
-union
-{
-    object { fractal pigment {color Red} scale <10,0,10>}   
-
-    object { tecladoEntero scale <0.066,0.06,0.06> translate <0,1.8,3.66> } 
-}
+object { tecladoEntero scale <0.066,0.06,0.06> translate <0,1.8,3.66> } 
