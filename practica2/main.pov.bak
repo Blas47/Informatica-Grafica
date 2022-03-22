@@ -2,18 +2,33 @@
 #include "woods.inc"
 #include "textures.inc"
 #include "rand.inc"  
-#include "Tecla.pov"
+#include "Tecla.pov"     
+#include "Mesa.pov"
+#include "Teclado.pov"
+#include "p1.pov"
+#include "Pantalla.pov"
+#include "raton.pov"
+#include "vaso.pov"
+#include "chair.pov"
+
+global_settings{photons{count 5000
+                        }
+                }
+
 /// La posicion de la camara
+
 camera {
- location <0,100,-350>
+ location <25,15,-15>
  right x
- look_at <0,50,100>
+ look_at <10,2,1 >
 	 angle 40
 }
 // Punto de luz
 light_source {
- <-10,1050,20>
+ <-10,10,20>
  color rgb <1,1,1> // White
+ photons{reflection on refraction on}
+
 }                 
 
 plane { // Floor
@@ -24,58 +39,40 @@ plane { // Floor
             } 
     } 
 }
-
+plane { // Floor
+    <0,0,1>, 20 //Normal and distance
+    texture { 
+        pigment {
+            color Brown
+            } 
+    } 
+}
 background{
     color Black
 }
-
-#declare alturaTeclado = 2;
-#declare anchoTeclado = 1;
-#declare largoTeclado = 3;
-#declare factorEscaladoTeclado = 10; 
-#declare paddingTeclado = 0.3;  
-#declare relacionProxTeclado = 4;
-#declare superficieTeclado =
-box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
-    scale <factorEscaladoTeclado,0,factorEscaladoTeclado>	 	
-	pigment{ color Red}
-	
-}         
-
-#declare tecladoEntero = 
-union{
-    object{superficieTeclado}     
-    object{TeclasFilas}
-    translate<0,0,anchoTeclado*factorEscaladoTeclado>  
-}
-
-
-
- 
-#declare TecladoConHueco = 
-difference {
-     object{tecladoEntero}
-     object{indicadorProxTeclado
-        translate<0,0,relacionProxTeclado+2*paddingTeclado>} 
-     pigment {color Red} 
+#declare escena = 
+union
+{
+    object{mesa}  
+    object{pantalla scale 0.25 translate<0,2.5,2.5>}
+    object{TecladoFinal scale 0.005 translate<0,2.5,-2.1> }  
+    object{p1fractal scale 0.05 translate<0,2.5,1>} 
+    object {raton scale 0.2 translate <1,2.5,-2.5>}
+    object{vaso  translate <-1.2,2.5,-0.5> }  
+    translate 10*x
 } 
 
-       
+#declare nrepes = 25;
 
-                       
-                       
+#macro  myfractal (s, recursividad)
+    #if(recursividad > 0)
+        object{escena scale s rotate <0,-30*recursividad,0>}
+        myfractal (s/1.5, recursividad-1)
+    #end
+#end
+     
+     
+myfractal(1.5, nrepes)  
 
+object{CHAIR}                      
 
-#declare fractal = object { TecladoConHueco pigment {color Red} };
-#declare iteration = 0; 
-#while (iteration<5) 
- #declare fractal = 
- union { 
-     object { TecladoConHueco pigment {color Red} }   
-     object { fractal scale 0.439 translate <0,1.1,0.2> } 
- } 
- #declare iteration = iteration + 1; 
-#end   
-object { fractal pigment {color Red} scale <10,0,10>}   
-
-object { tecladoEntero scale <0.066,0.06,0.06> translate <0,1.8,3.66> } 
