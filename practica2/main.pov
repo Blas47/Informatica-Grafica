@@ -8,6 +8,12 @@
 #include "p1.pov"
 #include "Pantalla.pov"
 #include "raton.pov"
+#include "vaso.pov"
+
+global_settings{photons{count 5000
+                        }
+                }
+
 /// La posicion de la camara
 
 camera {
@@ -18,8 +24,10 @@ camera {
 }
 // Punto de luz
 light_source {
- <-10,1050,20>
+ <-10,10,20>
  color rgb <1,1,1> // White
+ photons{reflection on refraction on}
+
 }                 
 
 plane { // Floor
@@ -44,6 +52,7 @@ background{
 
 object{mesa}  
 object{pantalla scale 0.25 translate<0,2.5,2.5>}
-object{TecladoFinal scale 0.005 translate<0,2.5,-2> }  
+object{TecladoFinal scale 0.005 translate<0,2.5,-2.1> }  
 object{p1fractal scale 0.05 translate<0,2.5,1>} 
 object {raton scale 0.2 translate <1,2.5,-2.5>}
+object{vaso  translate <-1.2,2.5,-0.5> }
