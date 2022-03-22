@@ -8,6 +8,7 @@
 #include "p1.pov"
 #include "Pantalla.pov"
 /// La posicion de la camara
+
 camera {
  location <0,5,-10>
  right x
@@ -28,12 +29,19 @@ plane { // Floor
             } 
     } 
 }
-
+plane { // Floor
+    <0,0,1>, 7 //Normal and distance
+    texture { 
+        pigment {
+            color Brown
+            } 
+    } 
+}
 background{
     color Black
 }
 
 object{mesa}  
 object{pantalla scale 0.25 translate<0,2.5,2.5>}
-object{TecladoFinal scale 0.005 translate<0,2.5,-1.75>}  
+object{TecladoFinal scale 0.005 translate<0,2.5,-2>}  
 object{p1fractal scale 0.05 translate<0,2.5,1>}    

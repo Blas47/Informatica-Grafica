@@ -53,15 +53,15 @@ pigment{ magnet 1 // magnet type 1 or 2
    pigment{ magnet 1 // magnet type 1 or 2
          julia <0.360, 0.250>, 20  interior 1, 1
          scale 0.26 rotate<0,40,0>
-         color_map{[0.0 color rgb <1,0.5,0>]
-                   [0.1 color rgb <1,0,0.5>]
-                   [0.4 color rgb <1,1,0>]
-                   [1.0 color rgb <1,1,1>]
-                   [1.0 color rgb <0,0,0>]}
+         color_map{
+         		 [0.0   color Green]
+      [0.33  color Blue]
+      [0.67  color Cyan]
+      [1.0   color Magenta]}
         } // end of pigment
 	
   }
- #declare angulo = 0;
+
 #declare base = union{
  object{pata
  	translate<-anchoMesa*3/4,0,-largoMesa*3/4>
@@ -81,11 +81,12 @@ pigment{ magnet 1 // magnet type 1 or 2
  	 pigment{ magnet 1 // magnet type 1 or 2
          julia <0.360, 0.250>, 30  interior 1, 1
          scale 0.16 rotate<90,10,0>
-         color_map{[0.0 color rgb <1,0.5,0>]
-                   [0.1 color rgb <1,0,0.5>]
-                   [0.4 color rgb <1,1,0>]
-                   [1.0 color rgb <1,1,1>]
-                   [1.0 color rgb <0,0,0>]}
+         color_map{
+         		 [0.0   color Blue]
+      [0.33  color Yellow]
+      [0.67  color Cyan]
+      [1.0   color Magenta]
+                  }
         } // end of pigment
  	
  }

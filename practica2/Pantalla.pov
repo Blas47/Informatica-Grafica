@@ -64,9 +64,9 @@ box{
                    [1.0 color rgb <0,0,0>]}
         } 
 } 
-declare screen = 
+#declare screen = 
 difference{ 
-    object{marco pigment {color Red}}
+    object{marco pigment {color Black}}
     object{huecoPantalla translate<0.5,0.5,0>}
 
 }              
@@ -80,12 +80,11 @@ union
 }
 #declare pantalla = 
 union{
-        object{tronco}
-        object{base}   
+        object{tronco pigment { color Black}}
+        object{base pigment { color Black}}   
         object{screenConImagen scale 0.5 translate<-4,1.75,0> }
         pigment {color Red}  
 }                        
-
 
 
 
