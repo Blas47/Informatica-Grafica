@@ -7,6 +7,7 @@
 #include "Teclado.pov"
 #include "p1.pov"
 #include "Pantalla.pov"
+#include "raton.pov"
 /// La posicion de la camara
 
 camera {
@@ -43,5 +44,6 @@ background{
 
 object{mesa}  
 object{pantalla scale 0.25 translate<0,2.5,2.5>}
-object{TecladoFinal scale 0.005 translate<0,2.5,-2>}  
-object{p1fractal scale 0.05 translate<0,2.5,1>}    
+object{TecladoFinal scale 0.005 translate<0,2.5,-2> }  
+object{p1fractal scale 0.05 translate<0,2.5,1>} 
+object {raton scale 0.2 translate <1,2.5,-2.5>}

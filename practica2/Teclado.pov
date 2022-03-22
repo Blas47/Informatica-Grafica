@@ -34,7 +34,7 @@ background{
 #declare superficieTeclado =
 box{ <-largoTeclado,0,-anchoTeclado>, <largoTeclado,alturaTeclado,anchoTeclado>
     scale <factorEscaladoTeclado,0,factorEscaladoTeclado>	 	
-	pigment{ color Red}
+	pigment{ color Black}
 	
 }         
 

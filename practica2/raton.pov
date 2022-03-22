@@ -69,7 +69,7 @@ background{
 	object{rueda rotate <0,0,90> translate <0.5,3.5,2>  scale 0.25}
 	}
 	
-raton
+
 	
 	
 	
